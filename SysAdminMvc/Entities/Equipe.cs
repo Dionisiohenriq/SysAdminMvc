@@ -11,7 +11,7 @@ public class Equipe
     public virtual Empresa Empresa { get; private set; }
     public Guid EmpresaId { get; set; }
     public string Setor { get; private set; }
-    public ICollection<Funcionario> Funcionarios { get; private set; }
+    public ICollection<Funcionario>? Funcionarios { get; private set; }
 
     private Equipe()
     {

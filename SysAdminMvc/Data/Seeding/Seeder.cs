@@ -9,7 +9,7 @@ public static class Seeder
     public static async Task Seed(this IApplicationBuilder app)
     {
         var listEmpresas = new List<Empresa>();
-        using var scope = app.ApplicationServices.CreateScope();
+        await using var scope = app.ApplicationServices.CreateAsyncScope();
         var context = scope.ServiceProvider.GetService<AppDbContext>();
 
         if (context == null) return;
@@ -30,7 +30,7 @@ public static class Seeder
                     new EmpresaModel
                     {
                         Country = "Argentina",
-                        Name = "Wolks"
+                        Name = "Wolks",
                     }));
             var alemanha = await context.Empresas.AddAsync(
                 Empresa.Create(
@@ -49,6 +49,7 @@ public static class Seeder
             {
                 for (var i = 0; i < listEmpresas.Count - 1; i++)
                 {
+                    var empresa = listEmpresas[i];
                     var equipe = await context.Equipes.AddAsync(
                         Equipe.Create(
                             new EquipeModel

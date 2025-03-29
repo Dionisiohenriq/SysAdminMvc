@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SysAdminMvc.Data;
 
@@ -11,9 +12,11 @@ using SysAdminMvc.Data;
 namespace SysAdminMvc.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250328134146_Inicial")]
+    partial class Inicial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -369,7 +372,7 @@ namespace SysAdminMvc.Migrations
 
                             b1.HasKey("FuncionarioId");
 
-                            b1.ToTable("Funcionario", (string)null);
+                            b1.ToTable("Funcionario");
 
                             b1.WithOwner()
                                 .HasForeignKey("FuncionarioId");
