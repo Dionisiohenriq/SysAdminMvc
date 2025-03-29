@@ -11,9 +11,7 @@ public class EquipeConfiguration : IEntityTypeConfiguration<Equipe>
         builder.Property(x => x.Id).IsRequired();
         builder.Property(x => x.Nome).IsRequired().HasMaxLength(30);
         builder.Property(s => s.Setor).IsRequired();
-        builder.HasMany<Funcionario>().WithOne(x => x.Equipe).HasForeignKey(x => x.EquipeId)
-            .OnDelete(DeleteBehavior.Restrict);
-
+        
         builder.ToTable("Equipe");
     }
 }

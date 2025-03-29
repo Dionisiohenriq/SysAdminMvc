@@ -9,7 +9,6 @@ public class Empresa
     public Guid Id { get; init; }
     public string Name { get; private set; }
     public string Country { get; private set; }
-    
     public ICollection<Equipe> Equipes { get; private set; }
     
     private Empresa()
@@ -21,6 +20,7 @@ public class Empresa
         Id = Guid.NewGuid();
         Name = model.Name;
         Country = model.Country;
+        Equipes = model.Equipes;
     }
 
     public static Empresa Create(EmpresaModel model)

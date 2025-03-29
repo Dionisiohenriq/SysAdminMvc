@@ -249,9 +249,6 @@ namespace SysAdminMvc.Migrations
                     b.Property<Guid>("EmpresaId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("EmpresaId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -265,8 +262,6 @@ namespace SysAdminMvc.Migrations
 
                     b.HasIndex("EmpresaId");
 
-                    b.HasIndex("EmpresaId1");
-
                     b.ToTable("Equipe", (string)null);
                 });
 
@@ -279,9 +274,6 @@ namespace SysAdminMvc.Migrations
                     b.Property<Guid>("EquipeId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("EquipeId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -290,8 +282,6 @@ namespace SysAdminMvc.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EquipeId");
-
-                    b.HasIndex("EquipeId1");
 
                     b.ToTable("Funcionario", (string)null);
                 });
@@ -350,29 +340,19 @@ namespace SysAdminMvc.Migrations
             modelBuilder.Entity("SysAdminMvc.Entities.Equipe", b =>
                 {
                     b.HasOne("SysAdminMvc.Entities.Empresa", "Empresa")
-                        .WithMany()
-                        .HasForeignKey("EmpresaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SysAdminMvc.Entities.Empresa", null)
                         .WithMany("Equipes")
-                        .HasForeignKey("EmpresaId1");
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Empresa");
                 });
 
             modelBuilder.Entity("SysAdminMvc.Entities.Funcionario", b =>
                 {
-                    b.HasOne("SysAdminMvc.Entities.Equipe", null)
-                        .WithMany()
-                        .HasForeignKey("EquipeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("SysAdminMvc.Entities.Equipe", "Equipe")
                         .WithMany("Funcionarios")
-                        .HasForeignKey("EquipeId1")
+                        .HasForeignKey("EquipeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

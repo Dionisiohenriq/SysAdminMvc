@@ -8,7 +8,7 @@ public class Funcionario
     public Guid Id { get; init; }
     public string Nome { get; private set; }
     public Email Email { get; private set; }
-    public virtual Equipe Equipe { get; private set; }
+    public Equipe Equipe { get; private set; }
     public Guid EquipeId { get; private set; }
 
     private Funcionario()
