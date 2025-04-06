@@ -9,8 +9,8 @@ public class EmpresaConfiguration : IEntityTypeConfiguration<Empresa>
     {
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Name).IsRequired().HasMaxLength(50);
-        builder.Property(x => x.Country).IsRequired();
-
+        builder.Property(x => x.Country).IsRequired().HasMaxLength(20);
+        
         builder.ToTable("Empresa");
     }
 }

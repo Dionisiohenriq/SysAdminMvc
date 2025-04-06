@@ -10,8 +10,6 @@ public record FuncionarioModel
     public Email Email { get; set; }
     public EquipeModel Equipe { get; set; }
     public Guid EquipeId { get; set; }
-    public Guid EmpresaId { get; set; }
-    public EmpresaModel Empresa { get; set; }
 
     public static FuncionarioModel ToModel(Funcionario entity)
     {
@@ -21,9 +19,7 @@ public record FuncionarioModel
             Nome = entity.Nome,
             Email = entity.Email,
             Equipe = EquipeModel.ToModel(entity.Equipe),
-            EquipeId = entity.EquipeId,
-            Empresa = EmpresaModel.ToModel(entity.Empresa),
-            EmpresaId = entity.Empresa.Id
+            EquipeId = entity.EquipeId
         };
     }
 }

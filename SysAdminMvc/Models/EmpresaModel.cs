@@ -1,3 +1,4 @@
+using NuGet.Packaging;
 using SysAdminMvc.Entities;
 
 namespace SysAdminMvc.Models;
@@ -11,12 +12,15 @@ public record EmpresaModel
 
     public static EmpresaModel ToModel(Empresa model)
     {
-        return new EmpresaModel
+        var empresaModel = new EmpresaModel
         {
             Id = model.Id,
             Name = model.Name,
             Country = model.Country,
-            Equipes = model.Equipes?.Select(e => EquipeModel.ToModel(e)).ToList()
         };
+        if (model.Equipes == null) return empresaModel;
+        var funcionariosModelList = model.Equipes.Select(EquipeModel.ToModel).ToList();
+        empresaModel.Equipes.AddRange(funcionariosModelList);
+        return empresaModel;
     }
 }

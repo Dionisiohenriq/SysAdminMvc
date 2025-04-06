@@ -9,7 +9,7 @@ public class Empresa
     public Guid Id { get; init; }
     public string Name { get; private set; }
     public string Country { get; private set; }
-    public ICollection<Equipe>? Equipes { get; private set; }
+    public IList<Equipe>? Equipes { get; private set; }
 
     public Empresa()
     {

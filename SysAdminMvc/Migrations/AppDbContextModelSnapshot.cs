@@ -228,7 +228,8 @@ namespace SysAdminMvc.Migrations
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -256,7 +257,8 @@ namespace SysAdminMvc.Migrations
 
                     b.Property<string>("Setor")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -271,9 +273,6 @@ namespace SysAdminMvc.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("EmpresaId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("EquipeId")
                         .HasColumnType("uniqueidentifier");
 
@@ -283,8 +282,6 @@ namespace SysAdminMvc.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("EquipeId");
 
@@ -355,12 +352,6 @@ namespace SysAdminMvc.Migrations
 
             modelBuilder.Entity("SysAdminMvc.Entities.Funcionario", b =>
                 {
-                    b.HasOne("SysAdminMvc.Entities.Empresa", "Empresa")
-                        .WithMany()
-                        .HasForeignKey("EmpresaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SysAdminMvc.Entities.Equipe", "Equipe")
                         .WithMany("Funcionarios")
                         .HasForeignKey("EquipeId")
@@ -388,8 +379,6 @@ namespace SysAdminMvc.Migrations
 
                     b.Navigation("Email")
                         .IsRequired();
-
-                    b.Navigation("Empresa");
 
                     b.Navigation("Equipe");
                 });

@@ -1,3 +1,4 @@
+using NuGet.Packaging;
 using SysAdminMvc.Entities;
 
 namespace SysAdminMvc.Models;
@@ -13,7 +14,7 @@ public record EquipeModel
 
     public static EquipeModel ToModel(Equipe entity)
     {
-        return new EquipeModel
+        var equipeModel = new EquipeModel
         {
             Id = entity.Id,
             EmpresaId = entity.EmpresaId,
@@ -21,5 +22,11 @@ public record EquipeModel
             Setor = entity.Setor,
             Nome = entity.Nome
         };
+
+        if (entity.Funcionarios == null) return equipeModel;
+        var funcionariosModelList = entity.Funcionarios.Select(FuncionarioModel.ToModel).ToList();
+        equipeModel.Funcionarios.AddRange(funcionariosModelList);
+
+        return equipeModel;
     }
 }

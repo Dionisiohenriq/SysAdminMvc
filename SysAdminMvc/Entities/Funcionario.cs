@@ -10,8 +10,6 @@ public class Funcionario
     public Email Email { get; private set; }
     public Equipe Equipe { get; set; }
     public Guid EquipeId { get; set; }
-    public Empresa Empresa { get; set; }
-    public Guid EmpresaId { get; set; }
 
     public Funcionario()
     {

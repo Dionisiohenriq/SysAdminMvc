@@ -20,7 +20,8 @@ public class Equipe
         EmpresaId = model.EmpresaId;
         Empresa = Empresa.Create(model.Empresa);
         Setor = model.Setor;
-        Funcionarios = model.Funcionarios?.Select(e => Funcionario.Create(e)).ToList();
+        if (model.Funcionarios != null)
+            Funcionarios = model.Funcionarios?.Select(e => Funcionario.Create(e)).ToList();
     }
 
     public Equipe()
