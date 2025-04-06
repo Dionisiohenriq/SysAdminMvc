@@ -271,6 +271,9 @@ namespace SysAdminMvc.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid>("EmpresaId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<Guid>("EquipeId")
                         .HasColumnType("uniqueidentifier");
 
@@ -280,6 +283,8 @@ namespace SysAdminMvc.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
 
                     b.HasIndex("EquipeId");
 
@@ -350,6 +355,12 @@ namespace SysAdminMvc.Migrations
 
             modelBuilder.Entity("SysAdminMvc.Entities.Funcionario", b =>
                 {
+                    b.HasOne("SysAdminMvc.Entities.Empresa", "Empresa")
+                        .WithMany()
+                        .HasForeignKey("EmpresaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("SysAdminMvc.Entities.Equipe", "Equipe")
                         .WithMany("Funcionarios")
                         .HasForeignKey("EquipeId")
@@ -369,7 +380,7 @@ namespace SysAdminMvc.Migrations
 
                             b1.HasKey("FuncionarioId");
 
-                            b1.ToTable("Funcionario", (string)null);
+                            b1.ToTable("Funcionario");
 
                             b1.WithOwner()
                                 .HasForeignKey("FuncionarioId");
@@ -377,6 +388,8 @@ namespace SysAdminMvc.Migrations
 
                     b.Navigation("Email")
                         .IsRequired();
+
+                    b.Navigation("Empresa");
 
                     b.Navigation("Equipe");
                 });

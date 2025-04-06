@@ -54,8 +54,8 @@ public static class Seeder
                         Equipe.Create(
                             new EquipeModel
                             {
-                                EmpresaEntity = listEmpresas[i],
-                                Name = $"Equipe{i}",
+                                Empresa = EmpresaModel.ToModel(listEmpresas[i]),
+                                Nome = $"Equipe{i}",
                                 Setor = $"Setor{i}",
                                 EmpresaId = listEmpresas[i].Id,
                             }));
@@ -69,8 +69,8 @@ public static class Seeder
                                     EmpresaId = listEmpresas[i].Id,
                                     Nome = $"Funcionario{j}",
                                     EquipeId = equipe.Entity.Id,
-                                    EmpresaEntity = listEmpresas[i],
-                                    EquipeEntity = equipe.Entity,
+                                    Empresa = EmpresaModel.ToModel(listEmpresas[i]),
+                                    Equipe = EquipeModel.ToModel(equipe.Entity),
                                     Email = Email.Create($"Funcionario{j}@gmail.com"),
                                 }));
                     }

@@ -10,8 +10,8 @@ public class Empresa
     public string Name { get; private set; }
     public string Country { get; private set; }
     public ICollection<Equipe>? Equipes { get; private set; }
-    
-    private Empresa()
+
+    public Empresa()
     {
     }
 
@@ -20,7 +20,8 @@ public class Empresa
         Id = Guid.NewGuid();
         Name = model.Name;
         Country = model.Country;
-        Equipes = model.Equipes;
+        if (model.Equipes != null)
+            Equipes = model.Equipes?.Select(e => Equipe.Create(e)).ToList();
     }
 
     public static Empresa Create(EmpresaModel model)

@@ -8,10 +8,12 @@ public class Funcionario
     public Guid Id { get; init; }
     public string Nome { get; private set; }
     public Email Email { get; private set; }
-    public Equipe Equipe { get; private set; }
-    public Guid EquipeId { get; private set; }
+    public Equipe Equipe { get; set; }
+    public Guid EquipeId { get; set; }
+    public Empresa Empresa { get; set; }
+    public Guid EmpresaId { get; set; }
 
-    private Funcionario()
+    public Funcionario()
     {
     }
 
