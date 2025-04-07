@@ -23,7 +23,9 @@ namespace SysAdminMvc.Controllers
         // GET: Empresa
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Empresas.ToListAsync());
+            var empresas = await _context.Empresas.ToListAsync();
+            var result = empresas.Select(EmpresaModel.ToModel).ToList();
+            return View(result);
         }
 
         // GET: Empresa/Details/5
@@ -41,7 +43,7 @@ namespace SysAdminMvc.Controllers
                 return NotFound();
             }
 
-            return View(empresa);
+            return View(EmpresaModel.ToModel(empresa));
         }
 
         // GET: Empresa/Create
@@ -82,7 +84,7 @@ namespace SysAdminMvc.Controllers
                 return NotFound();
             }
 
-            return View(empresa);
+            return View(EmpresaModel.ToModel(empresa));
         }
 
         // POST: Empresa/Edit/5
@@ -119,7 +121,7 @@ namespace SysAdminMvc.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(empresa);
+            return View(EmpresaModel.ToModel(empresa));
         }
 
         // GET: Empresa/Delete/5
@@ -137,7 +139,7 @@ namespace SysAdminMvc.Controllers
                 return NotFound();
             }
 
-            return View(empresa);
+            return View(EmpresaModel.ToModel(empresa));
         }
 
         // POST: Empresa/Delete/5

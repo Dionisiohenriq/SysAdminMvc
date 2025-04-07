@@ -9,7 +9,6 @@ public class Empresa
     public Guid Id { get; init; }
     public string Name { get; private set; }
     public string Country { get; private set; }
-    public IList<Equipe>? Equipes { get; private set; }
 
     public Empresa()
     {
@@ -20,8 +19,6 @@ public class Empresa
         Id = Guid.NewGuid();
         Name = model.Name;
         Country = model.Country;
-        if (model.Equipes != null)
-            Equipes = model.Equipes?.Select(e => Equipe.Create(e)).ToList();
     }
 
     public static Empresa Create(EmpresaModel model)

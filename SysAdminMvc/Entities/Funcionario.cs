@@ -20,6 +20,7 @@ public class Funcionario
         Id = Guid.NewGuid();
         Nome = model.Nome;
         Email = model.Email;
+        EquipeId = model.EquipeId;
     }
 
     public static Funcionario Create(FuncionarioModel model)

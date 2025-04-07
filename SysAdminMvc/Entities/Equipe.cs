@@ -11,17 +11,13 @@ public class Equipe
     public virtual Empresa Empresa { get; private set; }
     public Guid EmpresaId { get; set; }
     public string Setor { get; private set; }
-    public ICollection<Funcionario>? Funcionarios { get; private set; }
 
     private Equipe(EquipeModel model)
     {
         Id = Guid.NewGuid();
         Nome = model.Nome;
-        EmpresaId = model.EmpresaId;
-        Empresa = Empresa.Create(model.Empresa);
         Setor = model.Setor;
-        if (model.Funcionarios != null)
-            Funcionarios = model.Funcionarios?.Select(e => Funcionario.Create(e)).ToList();
+        EmpresaId = model.EmpresaId;
     }
 
     public Equipe()

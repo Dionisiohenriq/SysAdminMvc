@@ -1,5 +1,3 @@
-using System.Collections.ObjectModel;
-using NuGet.Packaging;
 using SysAdminMvc.Entities;
 using SysAdminMvc.Entities.ValueObjects;
 using SysAdminMvc.Models;
@@ -13,9 +11,6 @@ public static class Seeder
         var listEmpresas = new List<Empresa>();
         await using var scope = app.ApplicationServices.CreateAsyncScope();
         var context = scope.ServiceProvider.GetService<AppDbContext>();
-
-        var equipeCollection = new List<Equipe>();
-        var funcionarioCollection = new List<Funcionario>();
 
         if (context == null) return;
         await context.Database.EnsureCreatedAsync();
@@ -52,44 +47,31 @@ public static class Seeder
             // Equipes
             if (!context.Equipes.Any())
             {
-                foreach (var item in listEmpresas)
+                for (var i = 0; i < 3; i++)
                 {
-                    for (var i = 0; i < 3; i++)
+                    var empresa = EmpresaModel.ToModel(listEmpresas[i]);
+                    var equipe = await context.Equipes.AddAsync(
+                        Equipe.Create(
+                            new EquipeModel
+                            {
+                                Nome = $"Equipe{i}",
+                                Setor = $"Setor{i}",
+                                EmpresaId = empresa.Id!.Value,
+                            }));
+
+                    var equipeModel = EquipeModel.ToModel(equipe.Entity);
+
+                    for (var j = 0; j < 3; j++)
                     {
-                        var empresa = EmpresaModel.ToModel(item);
-                        var equipe = await context.Equipes.AddAsync(
-                            Equipe.Create(
-                                new EquipeModel
+                        var funcionario = await context.Funcionarios.AddAsync(
+                            Funcionario.Create(
+                                new FuncionarioModel
                                 {
-                                    Empresa = empresa,
-                                    Nome = $"Equipe{i}",
-                                    Setor = $"Setor{i}",
-                                    EmpresaId = empresa.Id!.Value,
+                                    Nome = $"Funcionario{j}",
+                                    EquipeId = equipeModel.Id!.Value,
+                                    Email = Email.Create($"funcionario{j}@gmail.com"),
                                 }));
-
-                        var equipeModel = EquipeModel.ToModel(equipe.Entity);
-                        equipeCollection.Add(equipe.Entity);
-
-                        for (var j = 0; j < 3; j++)
-                        {
-                            var funcionario = await context.Funcionarios.AddAsync(
-                                Funcionario.Create(
-                                    new FuncionarioModel
-                                    {
-                                        Nome = $"Funcionario{j}",
-                                        EquipeId = equipeModel.Id!.Value,
-                                        Equipe = equipeModel,
-                                        Email = Email.Create($"funcionario{j}@gmail.com"),
-                                    }));
-                            funcionarioCollection.Add(funcionario.Entity);
-                        }
-
-                        equipe.Entity.Funcionarios.AddRange(funcionarioCollection);
-                        context.Equipes.Update(equipe.Entity);
                     }
-
-                    item.Equipes.AddRange(equipeCollection);
-                    context.Empresas.Update(item);
                 }
             }
 
